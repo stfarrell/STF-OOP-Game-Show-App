@@ -13,20 +13,20 @@ class Game {
 		this.activePhrase = null;
 	}
 
+	//Start the game!
 	startGame() {
 		overlay.style.visibility = 'hidden';
 		const aPhrase = this.getRandomPhrase();
-		console.log(aPhrase);
 		aPhrase.addPhraseToDisplay();
 		this.activePhrase = aPhrase;
-		console.log(this.activePhrase);
 	}
 
+	//returns a random phrase from the array.
 	getRandomPhrase() {
-		console.log(this.phrases[Math.floor(Math.random() * this.phrases.length)]);
 		return this.phrases[Math.floor(Math.random() * this.phrases.length)];
 	}
 
+	//Checks to see if life should be lost or if we should check for a victory
 	handleInteraction(letterClicked) {
 		letterClicked.disabled = true;
 		this.activePhrase.checkLetter(letterClicked.innerText);
@@ -40,6 +40,7 @@ class Game {
 		}
 	}
 
+	//removes a fire gif and replaces it with a smoke gif.  Also blurs the whole screen by 1px.
 	removeLife() {
 		const heart = document.querySelector(
 			'#scoreboard > ol > li > img[src="images/fire.gif"]'
@@ -53,6 +54,7 @@ class Game {
 		}
 	}
 
+	//checks the game state to see if the player has won.
 	checkForWin() {
 		const letters = phraseContainer.children;
 		for (let letter of letters) {
@@ -63,8 +65,8 @@ class Game {
 		this.gameOver('win');
 	}
 
+	//Tells the user they've won or lost and applies the appropriate style
 	gameOver(status) {
-		console.log('game over');
 		const gameOverMsg = document.querySelector('#game-over-message');
 		//overlay.classList.remove('start');
 		overlay.style.visibility = 'visible';
@@ -73,22 +75,9 @@ class Game {
 			overlay.classList.remove('win');
 			overlay.classList.add('lose');
 		} else {
-			console.log('win');
 			gameOverMsg.innerText = 'Congratulations! Play again?';
 			overlay.classList.remove('lose');
 			overlay.classList.add('win');
 		}
 	}
 }
-
-// const newGame = new Game(
-// 	0,
-// 	[
-// 		new Phrase('grape'),
-// 		new Phrase('grapefruit'),
-// 		new Phrase('pine apple'),
-// 		new Phrase('watermelon'),
-// 		new Phrase('apple'),
-// 	],
-// 	null
-// );

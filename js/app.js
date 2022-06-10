@@ -2,7 +2,9 @@
  * Project 4 - OOP Game App
  * app.js */
 let newGame;
+const allBtns = document.querySelectorAll('.key');
 
+//Initialize the game with 5 phrase objects
 startBtn.addEventListener('click', (e) => {
 	resetGame();
 	newGame = new Game(
@@ -19,13 +21,23 @@ startBtn.addEventListener('click', (e) => {
 	newGame.startGame();
 });
 
-const allBtns = document.querySelectorAll('.key');
+//Click the buttons => Start the letter-checking process
 for (btn of allBtns) {
 	btn.addEventListener('click', (e) => {
 		newGame.handleInteraction(e.target);
 	});
 }
 
+//Type the buttons => Start the letter-checking process
+window.addEventListener('keypress', (e) => {
+	for (btn of allBtns) {
+		if (e.key === btn.innerText && btn.disabled === false) {
+			newGame.handleInteraction(btn);
+		}
+	}
+});
+
+//Reset the game.
 function resetGame() {
 	blurCount = 0;
 	body.style.filter = `blur(${blurCount}px)`;
@@ -43,11 +55,3 @@ function resetGame() {
 		heartContainer.firstChild.src = 'images/fire.gif';
 	}
 }
-
-window.addEventListener('keypress', (e) => {
-	for (btn of allBtns) {
-		if (e.key === btn.innerText && btn.disabled === false) {
-			newGame.handleInteraction(btn);
-		}
-	}
-});

@@ -9,6 +9,7 @@ class Phrase {
 		this.phrase = phrase.toLowerCase();
 	}
 
+	//Adds a random phrase from the array to display on the page
 	addPhraseToDisplay() {
 		for (let i = 0; i < this.phrase.length; i++) {
 			const newLetter = document.createElement('li');
@@ -22,8 +23,8 @@ class Phrase {
 		}
 	}
 
+	//Checks to see if the phrase includes the letter that was just clicked
 	checkLetter(letToCheck) {
-		console.log('check');
 		if (this.phrase.includes(letToCheck)) {
 			this.showMatchedLetter(letToCheck);
 		} else {
@@ -31,13 +32,13 @@ class Phrase {
 		}
 	}
 
+	//If the phrase contains the guessed letter, show that letter within the phrase.
 	showMatchedLetter(letToShow) {
 		const letters = phraseContainer.children;
 		for (let letter of letters) {
 			if (letter.innerText === letToShow) {
 				letter.classList.remove('hide');
 				letter.classList.add('show');
-				// return true;
 			}
 		}
 	}
