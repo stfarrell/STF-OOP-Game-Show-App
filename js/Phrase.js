@@ -26,7 +26,7 @@ class Phrase {
 	//Checks to see if the phrase includes the letter that was just clicked
 	checkLetter(letToCheck) {
 		if (this.phrase.includes(letToCheck)) {
-			this.showMatchedLetter(letToCheck);
+			return true;
 		} else {
 			return false;
 		}

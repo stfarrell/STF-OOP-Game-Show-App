@@ -39,8 +39,8 @@ window.addEventListener('keypress', (e) => {
 
 //Reset the game.
 function resetGame() {
-	blurCount = 0;
-	body.style.filter = `blur(${blurCount}px)`;
+	grayCount = 0;
+	body.style.filter = `grayscale(${grayCount}%)`;
 	while (phraseContainer.firstChild) {
 		phraseContainer.removeChild(phraseContainer.firstChild);
 	}

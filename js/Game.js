@@ -4,7 +4,7 @@
 const overlay = document.querySelector('#overlay');
 const startBtn = document.querySelector('#btn__reset');
 const body = document.querySelector('body');
-let blurCount = 0;
+let grayCount = 0;
 
 class Game {
 	constructor(missed, phrases, activePhrase) {
@@ -16,9 +16,8 @@ class Game {
 	//Start the game!
 	startGame() {
 		overlay.style.visibility = 'hidden';
-		const aPhrase = this.getRandomPhrase();
-		aPhrase.addPhraseToDisplay();
-		this.activePhrase = aPhrase;
+		this.activePhrase = this.getRandomPhrase();
+		this.activePhrase.addPhraseToDisplay();
 	}
 
 	//returns a random phrase from the array.
@@ -29,25 +28,25 @@ class Game {
 	//Checks to see if life should be lost or if we should check for a victory
 	handleInteraction(letterClicked) {
 		letterClicked.disabled = true;
-		this.activePhrase.checkLetter(letterClicked.innerText);
 
 		if (this.activePhrase.checkLetter(letterClicked.innerText) === false) {
 			letterClicked.classList.add('wrong');
 			this.removeLife();
 		} else {
+			this.activePhrase.showMatchedLetter(letterClicked.innerText);
 			letterClicked.classList.add('chosen');
 			this.checkForWin();
 		}
 	}
 
-	//removes a fire gif and replaces it with a smoke gif.  Also blurs the whole screen by 1px.
+	//removes a fire gif and replaces it with a smoke gif.  Also grays the whole screen by 20%.
 	removeLife() {
 		const heart = document.querySelector(
 			'#scoreboard > ol > li > img[src="images/fire.gif"]'
 		);
 		heart.src = 'images/smoke.gif';
-		blurCount += 1;
-		body.style.filter = `blur(${blurCount}px)`;
+		grayCount += 20;
+		body.style.filter = `grayscale(${grayCount}%)`;
 		this.missed += 1;
 		if (this.missed === 5) {
 			this.gameOver('loss');
